@@ -1,11 +1,14 @@
-
-import './App.css';
+import {Routes, Route} from "react-router";
 import ArticleCreate from './components/ArticleCreate';
+import ArticleList from './components/ArticleList';
 
 function App() {
-  return (
+  return (  
     <div className="App">
-      <ArticleCreate />
+      <Routes>
+        <Route path="/" element={<ArticleList />}></Route>
+        <Route path="/create" element={<ArticleCreate />}></Route>
+      </Routes>
     </div>
   );
 }

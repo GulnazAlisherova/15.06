@@ -1,21 +1,29 @@
+import axios from "axios";
+
 function ArticleCreate() {
-  return ( 
-    <div>
-      <form className="ArticleCreate">
-        <div>
-          <label>
-            Title
-            <input type="text" name="title" required></input>
-          </label>
-          <label>
-            Description
-            <input name="description" required></input>
-          </label>
-        </div>
-        <button>Submit</button>
-      </form>
-    </div>
-   );
+  function onFormSubmit(event) {
+    const formData = new formData(event.target);
+    axios
+    .post('https://newspage-b1593-default-rtdb.firebaseio.com/articles.json',
+     Object.fromEntries(formData.entries())
+    );
+  }
+  return (
+    <form className="ArticleCreate" onSubmit={onFormSubmit}>
+      <div>
+        <label>
+          Title
+          <input type="text" name="title" required />
+        </label>
+      </div>
+      <div>
+        <label>
+          Description
+          <textarea name="deccription"required></textarea>
+        </label>
+      </div>
+    </form>
+  );
 }
 
 export default ArticleCreate;
