@@ -1,10 +1,11 @@
-import logo from './logo.svg';
+
 import './App.css';
+import ArticleCreate from './components/ArticleCreate';
 
 function App() {
   return (
     <div className="App">
-     
+      <ArticleCreate />
     </div>
   );
 }
