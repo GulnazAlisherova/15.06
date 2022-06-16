@@ -1,39 +1,33 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
-
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function ArticleList() {
-  const [article, setArticles] = useState(null);
-  useEffect(function () {
-    axios
-      .get("https://fir-ef553-default-rtdb.firebaseio.com/articles.json")
-      .then(({ data }) => {
-        const newArticles = Object.keys(data).map((id) => {
-          return {
-            id: id,
-            ...data[id]
-          };
-        });
-        setArticles(newArticles);
-      });
-   
-  }, []);
+    const [articles, setArticles] = useState(null);
 
-  let output = "Loading...";
-  if (article !== null) {
-    output = article.map((article) => (
-      <li key={article.id}>    
-        {article.first_name} {article.last_name}
-      </li>
-    ));
-  }
-  return ( 
-    <ul className="ArticleList"> 
-      <li>
-        {output}
-      </li>
-    </ul>
-   );
+    useEffect(function() {
+        axios.get("https://newspage-b1593-default-rtdb.firebaseio.com/articles.json")
+            .then(({ data }) => {
+                setArticles(
+                    Object.keys(data).map(id => ({ id, ...data[id] }))
+                );
+            });
+    }, []);
+
+    let output = "Loading...";
+    if (articles !== null) {
+        output = articles.map(article => (
+            <li key={article.id}>
+                <Link to={'/' + article.id}>{article.title}</Link>
+            </li>
+        ))
+    }
+
+    return (
+        <ul className="ArticleList">
+            {output}
+        </ul>
+    );
 }
 
 export default ArticleList;
